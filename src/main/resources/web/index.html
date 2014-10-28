@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>vue.js-sample</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body>
+<p>Vue.js - サンプル</p>
+<div id="input" class="radius form">
+    <label for="something">やること</label>
+    <input id="something" type="text" v-model="something"/>
+    <button type="button" v-on="click: addTodo">追加</button>
+</div>
+<div id="todo">
+    <h1>{{title | uppercase}}</h1>
+    <div class="control">
+        <button type="button" v-on="click: changeOrder">並び替える</button>
+    </div>
+    <ul>
+        <li v-repeat="todos | orderBy content" v-on="click: done = !done" class="{{done? 'done':''}}">
+            {{content}}
+        </li>
+    </ul>
+</div>
+<script src="bower_components/vue/dist/vue.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

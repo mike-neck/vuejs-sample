@@ -1,0 +1,29 @@
+body {
+    color: #333333;
+}
+
+div {
+    margin: 5px;
+}
+
+li.done {
+    color: darkgray;
+    text-decoration: line-through;
+}
+
+div.radius {
+    padding: 15px;
+    border-radius: 10px;
+}
+
+div.square {
+    padding: 15px;
+}
+
+div.form {
+    background-color: azure;
+}
+
+div.border-gray {
+    border-color: darkgray;
+}

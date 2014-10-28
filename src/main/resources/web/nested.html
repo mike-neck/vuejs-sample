@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>ネストしたリスト構造の表示</title>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="nested">
+    <div v-text="title"></div>
+    <div v-repeat="model: fruits" class="radius form">
+        <div v-component="items" v-with="model"></div>
+    </div>
+    <div><button type="button" v-on="click:addFruit">追加</button></div>
+</div>
+
+<script type="application/javascript" src="bower_components/vue/dist/vue.min.js"></script>
+<script type="text/x-template" id="item-template">
+    <div>
+        <label v-attr="for:model.name" v-text="model.title"></label>
+    </div>
+    <div>
+        <select v-attr="id:model.name">
+            <option v-repeat="item: model.items| orderBy 'price'" v-attr="value: item.code">{{item.name + "-" + item.price}}</option>
+        </select>
+    </div>
+</script>
+<script type="application/javascript" src="js/nested.js"></script>
+</body>
+</html>
