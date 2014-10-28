@@ -8,4 +8,4 @@ out/
 *.ipr
 *.iws
 
-
+**/bower_components/**/*
