@@ -20,14 +20,13 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -111,35 +110,33 @@ public class WebHandler implements HttpHandler {
         }
     }
 
-    enum ContentType {
-        Html("html", "text/html"),
-        ICO("ico", "image/x-image"),
-        JS("js", "application/javascript"),
-        CSS("css", "text/css");
+    static final class ContentType {
 
-        static final Map<String, String> map = new HashMap<>();
+        private ContentType(){}
 
-        private final String extension;
-        private final String contentType;
+        private static final Properties map = new Properties();
 
-        ContentType(String extension, String contentType) {
-            this.extension = extension;
-            this.contentType = contentType;
-        }
+        private static final Set<String> textTypes = Collections.unmodifiableSet(
+                new HashSet<>(Arrays.asList("html", "css", "js")));
 
         static {
-            Stream.of(values()).forEach(c -> map.put(c.extension, c.contentType));
+            try(InputStream in = ContentType.class.getClassLoader().getResourceAsStream("mime-type.properties")) {
+                map.load(in);
+                if(map.size() == 0) {
+                    throw new ExceptionInInitializerError("application cannot find content types.");
+                }
+            } catch (IOException e) {
+                throw new ExceptionInInitializerError(e);
+            }
         }
 
         static String getContentType(String fileName) {
             if (fileName.equals("/")) {
                 return "text/html; charset=UTF-8";
             }
-            return map.keySet().stream()
-                    .filter(fileName::endsWith)
-                    .map(s -> map.get(s) + "; charset=UTF-8")
-                    .findAny()
-                    .orElse("text/plain; charset=UTF-8");
+            int comma = fileName.lastIndexOf('.');
+            String extension = fileName.substring(comma + 1).toLowerCase();
+            return map.getProperty(extension) + (textTypes.contains(extension)? "; charset=UTF-8":"");
         }
     }
 }
