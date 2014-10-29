@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title>bootstrapとともに使う</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap/style.css"/>
+</head>
+<body>
+<div class="navbar navbar-fixed-top navbar-inverse under-20">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">ワイワイプロジェクト</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="navigation">
+                <li v-repeat="navigation" class="{{now? 'active': ''}}"><a v-attr="href: href" v-text="title"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container top-60">
+    <div class="jumbotron">
+        <h2>チケット作る</h2>
+        <div id="input">
+            <div class="form-group">
+                <div class="row top-5 under-5">
+                    <div class="col-sm-3"><label for="title">タイトル</label></div>
+                    <div class="col-sm-9"><input type="text" id="title" v-model="title" class="form-control" placeholder="チケットの名前"/></div>
+                </div>
+                <div class="row top-5 under-5">
+                    <div class="col-sm-3"><label for="detail">内容</label></div>
+                    <div class="col-sm-9"><textarea id="detail" rows="4" v-model="detail" class="form-control" placeholder="詳細を記入"></textarea></div>
+                </div>
+                <div class="row top-5 under-5">
+                    <div class="col-sm-3"><label for="type">タイプ</label></div>
+                    <div class="col-sm-9">
+                        <select id="type" v-model="type" class="form-control">
+                            <option value="--" selected="selected">--</option>
+                            <option v-repeat="items" value="{{value}}">{{name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row top-5 under-5">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" class="btn btn-primary" v-on="click: addItem">追加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row container" id="issues">
+        <div class="col-sm-4 col-xs-6" v-repeat="items">
+            <div class="panel ticket {{panelType}}">
+                <div class="panel-heading ticket-title {{done? 'done':''}}">
+                    <a href="#">{{title}} <span class="badge" v-text="status"></span></a>
+                </div>
+                <div class="panel-body ticket {{status}}">
+                    <p v-text="detail"></p>
+                    <button type="button" class="btn btn-xs btn-default" v-on="click: updateStatus(this)">進める</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript" src="js/jquery.js"></script>
+<script type="application/javascript" src="js/bootstrap.min.js"></script>
+<script type="application/javascript" src="js/vue.min.js"></script>
+<script type="application/javascript" src="js/bootstrap/common.js"></script>
+<script type="application/javascript" src="js/bootstrap/main.js"></script>
+</body>
+</html>

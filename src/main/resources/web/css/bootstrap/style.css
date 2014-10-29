@@ -1,0 +1,39 @@
+div.under-20 {
+    margin-bottom: 20px;
+}
+
+div.under-10 {
+    margin-bottom: 10px;
+}
+
+div.under-5 {
+    margin-bottom: 5px;
+}
+
+div.top-5 {
+    margin-top: 5px;
+}
+
+div.top-60 {
+    margin-top: 60px;
+}
+
+div.ticket.created {
+    background-color: ghostwhite;
+}
+
+div.ticket.proceeding {
+    background-color: lightyellow;
+}
+
+div.ticket.done {
+    background-color: lightgrey;
+}
+
+div.ticket-title {
+    text-decoration: none;
+}
+
+div.ticket-title.done {
+    text-decoration: line-through;
+}
