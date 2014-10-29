@@ -33,4 +33,16 @@ public class ContentTypeTest {
         String contentType = WebHandler.ContentType.getContentType("bower_components/vue/dist/vue.js");
         assertThat(contentType, is("application/javascript; charset=UTF-8"));
     }
+
+    @Test
+    public void css() {
+        String contentType = WebHandler.ContentType.getContentType("css/bootstrap.min.css");
+        assertThat(contentType, is("text/css; charset=UTF-8"));
+    }
+
+    @Test
+    public void ttf() {
+        String contentType = WebHandler.ContentType.getContentType("fonts/glyphicons-halfilings-regular.ttf");
+        assertThat(contentType, is("application/x-font-ttf"));
+    }
 }
